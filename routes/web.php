@@ -6,22 +6,25 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
- return view('welcome');
+    return view('welcome');
 });
-Route::resource('products', ProductController::class);
 
-// Register
-Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
-Route::post('/register', [RegisteredUserController::class, 'store']);
+// Guest routes
+Route::middleware('guest')->group(function () {
+    // Register
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store']);
 
-// Login
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+    // Login
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+});
 
-// Logout
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-
-// Protected route
-Route::get('/dashboard', function () {
-    return view('dashboard'); 
-})->middleware('auth');
+// Protected routes
+Route::middleware('auth')->group(function () {
+    // Products (serves as dashboard)
+    Route::resource('products', ProductController::class);
+    
+    // Logout
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+});

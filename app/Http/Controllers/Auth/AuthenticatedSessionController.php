@@ -15,18 +15,16 @@ class AuthenticatedSessionController extends Controller
 
     public function store(Request $request)
     {
-        
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard'); 
+            return redirect()->route('products.index');
         }
 
         return back()->withErrors([
