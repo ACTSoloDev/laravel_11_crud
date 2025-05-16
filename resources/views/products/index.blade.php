@@ -16,6 +16,7 @@ Product</a>
  <table class="table table-striped table-bordered">
  <thead>
  <tr>
+ <th scope="col">Image</th>
  <th scope="col">S#</th>
  <th scope="col">Code</th>
  <th scope="col">Name</th>
@@ -27,8 +28,14 @@ Product</a>
 <tbody>
  @forelse ($products as $product)
 <tr>
- <th scope="row">{{ $loop->iteration 
-}}</th>
+ <td class="text-center">
+   @if($product->image)
+     <img src="{{ Storage::url($product->image) }}" alt="Product Image" style="max-height: 50px; max-width: 50px;" class="img-thumbnail">
+   @else
+     <img src="https://via.placeholder.com/50x50?text=No+Image" alt="No Image" style="max-height: 50px; max-width: 50px;" class="img-thumbnail">
+   @endif
+ </td>
+ <th scope="row">{{ $loop->iteration }}</th>
  <td>{{ $product->code }}</td>
  <td>{{ $product->name }}</td>
  <td>{{ $product->quantity }}</td>
