@@ -19,7 +19,7 @@ class AuthenticatedSessionController extends Controller
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
-
+        
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
