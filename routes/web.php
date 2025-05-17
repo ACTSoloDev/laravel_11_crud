@@ -28,3 +28,10 @@ Route::middleware('auth')->group(function () {
     // Logout
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
+<?php
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+Route::get('/', function () {
+ return view('welcome');
+});
+Route::resource('products', ProductController::class);
