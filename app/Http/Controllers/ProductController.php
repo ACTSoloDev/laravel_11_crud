@@ -26,6 +26,7 @@ class ProductController extends Controller
  /**
  * Store a newly created resource in storage.
  */
+<<<<<<< HEAD
  public function store(StoreProductRequest $request) : RedirectResponse
  {
  $data = $request->validated();
@@ -34,6 +35,12 @@ class ProductController extends Controller
  $data['image'] = $imagePath;
  }
  Product::create($data);
+=======
+ public function store(StoreProductRequest $request) : 
+RedirectResponse
+ {
+ Product::create($request->validated());
+>>>>>>> 2a73ddf4291ce6bd324c82b5a069ad01602649fb
  return redirect()->route('products.index')
  ->withSuccess('New product is added successfully.');
  }
@@ -54,6 +61,7 @@ class ProductController extends Controller
  /**
  * Update the specified resource in storage.
  */
+<<<<<<< HEAD
  public function update(UpdateProductRequest $request, Product $product) : RedirectResponse
  {
  $data = $request->validated();
@@ -62,6 +70,12 @@ class ProductController extends Controller
  $data['image'] = $imagePath;
  }
  $product->update($data);
+=======
+ public function update(UpdateProductRequest $request, Product
+$product) : RedirectResponse
+ {
+ $product->update($request->validated());
+>>>>>>> 2a73ddf4291ce6bd324c82b5a069ad01602649fb
  return redirect()->back()
  ->withSuccess('Product is updated successfully.');
  }
